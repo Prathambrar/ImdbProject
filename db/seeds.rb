@@ -8,20 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-require 'csv'
-require 'faker'
 
-csv_books_path = Rails.root.join('db', 'seeds', '../../datasets/imdb_movies.csv')
-row_count = 0
-
-CSV.foreach(csv_books_path, headers: true) do |row|
-  break if row_count >= 200
-
-  release_date = begin
-    Date.strptime(row['release_date'], '%m/%d/%Y')
-  rescue ArgumentError
-    Faker::Date.between(from: '1900-01-01', to: Date.today)
-  end
 
   Movie.create!(
     title: row['title'],
